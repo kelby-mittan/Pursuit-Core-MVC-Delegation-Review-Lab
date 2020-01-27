@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieViewController: UIViewController {
+class MovieViewController: UIViewController, FontSize {
     @IBOutlet weak var movieTableView: UITableView!
     
     private var movies = [Movie]() { // empty array
@@ -31,10 +31,14 @@ class MovieViewController: UIViewController {
         movies = Movie.allMovies
     }
     
+    func changedFontSize(_ size: CGFloat) {
+        
+    }
+    
     @IBAction func updateUIFromUnwindSegue(segue: UIStoryboardSegue) {
         
         guard let movieVC = segue.source as? FontSizeViewController else {
-            return
+            fatalError()
         }
         
         fontSize = movieVC.fontSize

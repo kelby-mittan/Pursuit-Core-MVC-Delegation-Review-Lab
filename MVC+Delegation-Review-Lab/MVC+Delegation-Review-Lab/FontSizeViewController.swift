@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol FontSize: AnyObject {
+    func changedFontSize(_ size: CGFloat)
+}
+
 class FontSizeViewController: UIViewController {
     
     @IBOutlet weak var theSlider: UISlider!
     @IBOutlet weak var theStepper: UIStepper!
     @IBOutlet weak var fontSizeLabel: UILabel!
+    
+    weak var sizeDelegate: FontSize?
     
     var fontSize: Double = 17.0 {
         didSet {
@@ -26,20 +32,21 @@ class FontSizeViewController: UIViewController {
         fontSizeLabel.text = "Font Size: 17"
         configureSlider()
         configureStepper()
+        theSlider.isEnabled = false
         
     }
     
     func configureStepper() {
-        theStepper.minimumValue = 17.0
-        theStepper.maximumValue = 35.0
-        theStepper.stepValue = 1.0
-        // default start value
+        theStepper.minimumValue = 1.0
+        theStepper.maximumValue = 45.0
+        theStepper.stepValue = 2.0
+        
         theStepper.value = 17.0
     }
     
     func configureSlider() {
-        theSlider.minimumValue = 17
-        theSlider.maximumValue = 35
+        theSlider.minimumValue = 1
+        theSlider.maximumValue = 45
         theSlider.value = 17
     }
     
@@ -47,6 +54,8 @@ class FontSizeViewController: UIViewController {
         fontSize = theStepper.value
         fontSizeLabel.font = UIFont.systemFont(ofSize: CGFloat(theStepper!.value))
         theSlider.value = Float(theStepper.value)
+        
+        sizeDelegate?.changedFontSize(CGFloat(theStepper.value))
     }
     
 
