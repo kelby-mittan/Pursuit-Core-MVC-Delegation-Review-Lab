@@ -23,6 +23,7 @@ class FontSizeViewController: UIViewController {
     var fontSize: Double = 17.0 {
         didSet {
             fontSizeLabel.text = "Font Size: \(Int(theStepper.value))"
+            sizeDelegate?.changedFontSize(CGFloat(fontSize))
         }
     }
     
@@ -54,8 +55,6 @@ class FontSizeViewController: UIViewController {
         fontSize = theStepper.value
         fontSizeLabel.font = UIFont.systemFont(ofSize: CGFloat(theStepper!.value))
         theSlider.value = Float(theStepper.value)
-        
-        sizeDelegate?.changedFontSize(CGFloat(theStepper.value))
     }
     
 

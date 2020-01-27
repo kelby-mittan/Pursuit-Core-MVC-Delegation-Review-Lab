@@ -31,18 +31,21 @@ class MovieViewController: UIViewController, FontSize {
         movies = Movie.allMovies
     }
     
-    func changedFontSize(_ size: CGFloat) {
-        
-    }
+    
     
     @IBAction func updateUIFromUnwindSegue(segue: UIStoryboardSegue) {
-        
-        guard let movieVC = segue.source as? FontSizeViewController else {
+        loadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let movieVC = segue.destination as? FontSizeViewController else {
             fatalError()
         }
-        
-        fontSize = movieVC.fontSize
-        loadData()
+        movieVC.sizeDelegate = self
+    }
+    
+    func changedFontSize(_ size: CGFloat) {
+        self.fontSize = Double(size)
     }
     
 }
